@@ -23,6 +23,8 @@ import org.hibernate.annotations.Type;
 @Table (name = "funcionario")
 public class Funcionario implements IBaseModel, Serializable {
 
+	
+	
 	/**
 	 * 
 	 */
