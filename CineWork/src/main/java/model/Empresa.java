@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Empresa implements IBaseModel, Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -43,7 +44,7 @@ public class Empresa implements IBaseModel, Serializable {
 	@Column(name = "senha", nullable = false)
 	private String senha;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "endereco_id", referencedColumnName = "id")
 	private Endereco endereco;
 	
@@ -53,10 +54,10 @@ public class Empresa implements IBaseModel, Serializable {
 	@OneToMany(mappedBy = "empresa", targetEntity = Cargo.class)
 	private List<Cargo> cargos;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {

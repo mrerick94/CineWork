@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Funcionario implements IBaseModel, Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -64,7 +65,7 @@ public class Funcionario implements IBaseModel, Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date ultimoUso;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "endereco_id", referencedColumnName = "id")
 	private Endereco endereco;
 	
@@ -76,10 +77,10 @@ public class Funcionario implements IBaseModel, Serializable {
 	@JoinColumn(name = "empresa_id", referencedColumnName = "id")
 	private Empresa empresa;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {

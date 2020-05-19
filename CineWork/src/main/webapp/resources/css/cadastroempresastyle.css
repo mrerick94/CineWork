@@ -4,10 +4,48 @@
 
   .cadastro {
       background-color: #EFEFEF;
-      width: 40%;
+      width: relative;
+      max-width: 850px;
       margin: 0 auto;
       margin-top: 20px;
-      border-radius: 1%;
+      border-radius: 2%;
       height: relative;
-      padding: 55px;
+      padding: 20px;
+  }
+  
+  .p-grid {
+  	margin-top: 10px !important;
+  }
+  
+  .inputtext {
+  	font-size: 14px;
+  }
+  
+  .dica {
+  	font-size: 10px;
+  }
+  
+  .endereco {
+  	padding: 15px;
+  	width: 100%;
+  	height: relative;
+  	border-radius: 4%;
+  	border: solid 1px lightgrey;
+  	margin-top: 10px;
+  	margin-bottom: 10px;
+  }
+  
+  .ui-outputlabel {
+  	padding: 0.4em !important;
+  	align-content: flex-end !important;
+  }
+  
+  .checkboxtermos {
+  	margin-top: 15px;
+  }
+  
+  .botoes {
+  	margin-top: 20px;
+  	display: flex;
+  	justify-content: center;
   }

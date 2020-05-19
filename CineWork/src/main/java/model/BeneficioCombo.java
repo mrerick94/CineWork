@@ -24,7 +24,7 @@ public class BeneficioCombo implements IBaseModel, Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@ManyToOne(targetEntity = Beneficio.class, optional = false)
 	@JoinColumn(name = "beneficio_id", referencedColumnName = "id")
@@ -37,10 +37,10 @@ public class BeneficioCombo implements IBaseModel, Serializable {
 	@Column(name = "quantidade", nullable = false)
 	private Integer quantidade;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Beneficio getBeneficio() {

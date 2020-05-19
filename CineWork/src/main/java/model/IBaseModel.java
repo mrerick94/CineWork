@@ -2,8 +2,8 @@ package model;
 
 public interface IBaseModel {
 
-	public abstract Integer getId();
+	public abstract Long getId();
 	
-	public abstract void setId(Integer id);
+	public abstract void setId(Long id);
 	
 }

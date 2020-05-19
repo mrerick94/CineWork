@@ -21,7 +21,7 @@ USE `cinework` ;
 DROP TABLE IF EXISTS `cinework`.`estado` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`estado` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `uf` VARCHAR(3) NOT NULL,
   PRIMARY KEY (`id`))
@@ -38,15 +38,15 @@ CREATE UNIQUE INDEX `nome_UNIQUE` ON `cinework`.`estado` (`nome` ASC);
 DROP TABLE IF EXISTS `cinework`.`endereco` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`endereco` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `logradouro` VARCHAR(100) NOT NULL,
   `numero` VARCHAR(5) NULL,
   `cidade` VARCHAR(70) NOT NULL,
-  `cep` VARCHAR(8) NOT NULL,
+  `cep` VARCHAR(10) NOT NULL,
   `complemento` VARCHAR(255) NULL,
   `bloco` VARCHAR(45) NULL,
   `apartamento` VARCHAR(7) NULL,
-  `estado_id` INT NOT NULL,
+  `estado_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_endereco_estado1`
     FOREIGN KEY (`estado_id`)
@@ -64,13 +64,13 @@ CREATE INDEX `fk_endereco_estado1_idx` ON `cinework`.`endereco` (`estado_id` ASC
 DROP TABLE IF EXISTS `cinework`.`empresa` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`empresa` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
-  `cnpj` VARCHAR(14) NOT NULL,
-  `telefone` VARCHAR(45) NOT NULL,
+  `cnpj` VARCHAR(18) NOT NULL,
+  `telefone` VARCHAR(14) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   `senha` VARCHAR(24) NOT NULL,
-  `endereco_id` INT NOT NULL,
+  `endereco_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `endereco_id`),
   CONSTRAINT `fk_empresa_endereco`
     FOREIGN KEY (`endereco_id`)
@@ -92,7 +92,7 @@ CREATE UNIQUE INDEX `email_UNIQUE` ON `cinework`.`empresa` (`email` ASC);
 DROP TABLE IF EXISTS `cinework`.`combo` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`combo` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `valor` DECIMAL(8,2) UNSIGNED NOT NULL,
   `descricao` TEXT(1000) NOT NULL,
   `imagepath` VARCHAR(255) NOT NULL,
@@ -106,10 +106,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `cinework`.`cargo` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`cargo` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
-  `combo_id` INT NOT NULL,
-  `empresa_id` INT NOT NULL,
+  `combo_id` BIGINT(20) NOT NULL,
+  `empresa_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_cargo_pacotebeneficio1`
     FOREIGN KEY (`combo_id`)
@@ -134,7 +134,7 @@ CREATE INDEX `fk_cargo_empresa1_idx` ON `cinework`.`cargo` (`empresa_id` ASC);
 DROP TABLE IF EXISTS `cinework`.`funcionario` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`funcionario` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
   `email` VARCHAR(60) NOT NULL,
   `nascimento` DATE NOT NULL,
@@ -144,9 +144,9 @@ CREATE TABLE IF NOT EXISTS `cinework`.`funcionario` (
   `pis` VARCHAR(11) NOT NULL,
   `ativo` TINYINT(1) NOT NULL,
   `ultimouso` DATE NULL,
-  `endereco_id` INT NOT NULL,
-  `cargo_id` INT NOT NULL,
-  `empresa_id` INT NOT NULL,
+  `endereco_id` BIGINT(20) NOT NULL,
+  `cargo_id` BIGINT(20) NOT NULL,
+  `empresa_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `endereco_id`, `empresa_id`),
   CONSTRAINT `fk_colaborador_endereco1`
     FOREIGN KEY (`endereco_id`)
@@ -186,7 +186,7 @@ CREATE INDEX `fk_funcionario_empresa1_idx` ON `cinework`.`funcionario` (`empresa
 DROP TABLE IF EXISTS `cinework`.`beneficio` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`beneficio` (
-  `id` INT NOT NULL,
+  `id` BIGINT(20) NOT NULL,
   `nome` VARCHAR(70) NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `valor` DECIMAL(8,2) UNSIGNED NOT NULL,
@@ -200,9 +200,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `cinework`.`beneficio_combo` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`beneficio_combo` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `beneficio_id` INT NOT NULL,
-  `combo_id` INT NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `beneficio_id` BIGINT(20) NOT NULL,
+  `combo_id` BIGINT(20) NOT NULL,
   `quantidade` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `beneficio_id`, `combo_id`),
   CONSTRAINT `fk_beneficio_has_pacotebeneficio_beneficio1`

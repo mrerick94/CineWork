@@ -25,7 +25,7 @@ public class Endereco implements IBaseModel, Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "logradouro", nullable = false)
 	private String logradouro;
@@ -52,10 +52,10 @@ public class Endereco implements IBaseModel, Serializable {
 	@JoinColumn(name = "estado_id", referencedColumnName = "id")
 	private Estado estado;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getLogradouro() {
