@@ -7,15 +7,59 @@
 <h:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>CineWork | Login</title>
+	<h:outputStylesheet library="css" name="loginstyle.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro"
+		rel="stylesheet" />
 </h:head>
 
 <h:body>
+	<div class="divprincipal">
 
-	<h:form>
-		<h3>Teste</h3>
+		<h:form id="formLogin" class="formLogin">
+			<p:growl id="mensagem" life="5000" />
+			<p:graphicImage class="logo" library="images"
+				name="cineworklogologin.png" />
 
-	</h:form>
+			<div class="loginText1">
+				<p:outputLabel
+					value="Bem-vindo ao gerenciamento de benefícios do CineWork" />
+			</div>
+			<div class="loginText1 loginText2">
+				<p:outputLabel value="Por favor, entre com sua conta." />
+			</div>
 
+			<div class="div-align-center">
+				<p:inputText id="email" required="true"
+					requiredMessage="E-mail deve ser preenchido"
+					value="#{loginController.email}" placeholder="E-mail da Empresa"
+					class="inputtext1" maxlength="100" />
+			</div>
+
+			<div class="inputtext2 div-align-center">
+				<p:password id="senha" required="true"
+					requiredMessage="Senha deve ser preenchida"
+					value="#{loginController.senha}" placeholder="Senha da Empresa"
+					class="inputtext1" maxlength="100" />
+			</div>
+
+			<div class="divbotao">
+				<p:commandButton styleClass="botaoentrar" value="Entrar" update="formLogin, mensagem"
+					action="#{loginController.entrar}" />
+			</div>
+
+			<div class="loginText1">
+				<p:link outcome="recuperacaosenha" value="Esqueci minha Senha"
+					disabled="true" />
+			</div>
+
+			<div class="loginText1 loginText2">
+				<p:link outcome="cadastroempresa"
+					value="Não possui uma conta? Clique aqui e ofereça a seus colaboradores o melhor do cinema!"
+					styleClass="loginText1" />
+			</div>
+
+		</h:form>
+	</div>
 </h:body>
 
 </html>

@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import dao.EmpresaDao;
 import dao.EstadoDao;
@@ -42,7 +43,7 @@ public class CadastroEmpresaController implements Serializable {
 	}
 
 	public String cadastrar() {
-		if (confirmarSenha()) {
+		if (verificarSenha()) {
 			if (!aceitaTermos) {
 				FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_WARN, "Você precisa aceitar o Contrato de Serviços da CineWork para poder usar nosso Serviço.",
 						null);
@@ -59,7 +60,15 @@ public class CadastroEmpresaController implements Serializable {
 		return "/login.xhtml?faces-redirect=true";
 	}
 	
-	public boolean confirmarSenha() {
+	public void confirmarSenha(AjaxBehaviorEvent e) {
+		if (!confirmacaoSenha.equals(empresa.getSenha())) {
+			FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Os campos Senha e Confirmação de Senha estão diferentes!",
+					null);
+			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		}
+	}
+	
+	private boolean verificarSenha() {
 		if (!confirmacaoSenha.equals(empresa.getSenha())) {
 			FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Os campos Senha e Confirmação de Senha estão diferentes!",
 					null);

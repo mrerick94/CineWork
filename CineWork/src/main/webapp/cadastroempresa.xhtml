@@ -32,7 +32,9 @@
 				requiredMessage="CNPJ deve ser preenchido"
 				value="#{cadastroEmpresaController.empresa.cnpj}"
 				placeholder="Informe o CNPJ de sua empresa"
-				class="p-col-4 inputtext" maxlength="14" />
+				class="p-col-4 inputtext" maxlength="14" >
+				<p:keyFilter mask="num"/>
+				</p:inputMask>
 		</div>
 		<div class="p-grid">
 			<p:outputLabel value="Telefone: " for="telefone" class="p-col-2" />
@@ -40,7 +42,9 @@
 				requiredMessage="Telefone deve ser preenchido"
 				value="#{cadastroEmpresaController.empresa.telefone}"
 				placeholder="Informe o telefone de sua empresa"
-				class="p-col-4 inputtext" maxlength="11" />
+				class="p-col-4 inputtext" maxlength="11" >
+				<p:keyFilter mask="num"/>
+				</p:inputMask>
 		</div>
 
 		<div class="endereco">
@@ -50,8 +54,9 @@
 				<p:inputMask mask="99.999-999" id="cep" required="true"
 					requiredMessage="CEP deve ser preenchido"
 					value="#{cadastroEmpresaController.empresa.endereco.cep}"
-					placeholder="CEP" class="p-col-2 inputtext" maxlength="8" />
-				<p:outputLabel value="Apenas números" class="p-col-5 dica" />
+					placeholder="CEP" class="p-col-2 inputtext" maxlength="8" >
+				<p:keyFilter mask="num"/>
+				</p:inputMask>
 			</div>
 			<div class="p-grid">
 				<p:outputLabel value="Logradouro: " for="logradouro" class="p-col-2" />
@@ -63,7 +68,9 @@
 				<p:outputLabel value="Nº: " for="numero" />
 				<p:inputText id="numero"
 					value="#{cadastroEmpresaController.empresa.endereco.numero}"
-					class="p-col-1 inputtext" maxlength="5" />
+					class="p-col-1 inputtext" maxlength="5" >
+				<p:keyFilter mask="num"/>
+				</p:inputText>
 			</div>
 			<div class="p-grid">
 				<p:outputLabel value="Complemento: " for="complemento"
@@ -117,7 +124,7 @@
 				requiredMessage="Senha deve ser preenchida"
 				value="#{cadastroEmpresaController.empresa.senha}"
 				placeholder="Informe a senha a ser usada" class="p-col-4 inputtext"
-				maxlength="24" />
+				maxlength="24" redisplay="true"/>
 			<p:outputLabel
 				value="Entre 8 e 24 caracteres, e deve conter letra maiúscula e número"
 				class="p-col-5 dica" />
@@ -129,9 +136,8 @@
 				requiredMessage="Telefone deve ser preenchido"
 				value="#{cadastroEmpresaController.confirmacaoSenha}"
 				placeholder="Informe a senha novamente" class="p-col-4 inputtext"
-				maxlength="24">
-				<p:ajax event="blur"
-					listener="#{cadastroEmpresaController.confirmarSenha}" />
+				maxlength="24" match="senha" redisplay="true">
+				<p:ajax event="blur" listener="#{cadastroEmpresaController.confirmarSenha}" form="@form" update="@form"/>
 			</p:password>
 		</div>
 
@@ -140,10 +146,12 @@
 			itemLabel="Declaro que concordo com o Contrato de Serviços CineWork e a política de privacidade e cookies."
 			class="checkboxtermos" />
 
+		
 		<div class="botoes">
 			<p:commandButton value="Cadastrar" update="cadastro, mensagemSalvar"
 				action="#{cadastroEmpresaController.cadastrar}" />
 
+<!-- Botao voltar nao está funcionando quando os campos requeridos nao estao preenchidos -->
 			<p:commandButton value="Voltar"
 				action="#{cadastroEmpresaController.voltar}" />
 		</div>
