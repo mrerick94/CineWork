@@ -1,0 +1,55 @@
+.checkboxfuncionarioativo {
+	margin-top: 15px;
+}
+
+.cadastro {
+	background-color: #EFEFEF;
+	width: relative;
+	max-width: 850px;
+	margin: 0 auto;
+	margin-top: 20px;
+	border-radius: 2%;
+	height: relative;
+	padding: 20px;
+}
+
+.p-grid {
+	margin-top: 10px !important;
+}
+
+.inputtext {
+	font-size: 14px !important;
+}
+
+.dica {
+	font-size: 10px;
+}
+
+.endereco {
+	padding: 15px;
+	width: 100%;
+	height: relative;
+	border-radius: 4%;
+	border: solid 1px lightgrey;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.ui-outputlabel {
+	align-content: flex-end !important;
+}
+
+.botoes {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.labelpaddingcadastrofuncionario {
+	padding: 0.5em !important;
+}
+
+.ui-calendar {
+	padding: 0 !important;
+	flex: 0 0 auto !important;
+}

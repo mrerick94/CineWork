@@ -108,7 +108,7 @@ DROP TABLE IF EXISTS `cinework`.`cargo` ;
 CREATE TABLE IF NOT EXISTS `cinework`.`cargo` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
-  `combo_id` BIGINT(20) NOT NULL,
+  `combo_id` BIGINT(20),
   `empresa_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_cargo_pacotebeneficio1`
@@ -138,10 +138,10 @@ CREATE TABLE IF NOT EXISTS `cinework`.`funcionario` (
   `nome` VARCHAR(100) NOT NULL,
   `email` VARCHAR(60) NOT NULL,
   `nascimento` DATE NOT NULL,
-  `telefone` VARCHAR(11) NULL,
-  `celular` VARCHAR(11) NOT NULL,
-  `cpf` VARCHAR(11) NOT NULL,
-  `pis` VARCHAR(11) NOT NULL,
+  `telefone` VARCHAR(14) NULL,
+  `celular` VARCHAR(14) NOT NULL,
+  `cpf` VARCHAR(14) NOT NULL,
+  `pis` VARCHAR(14) NOT NULL,
   `ativo` TINYINT(1) NOT NULL,
   `ultimouso` DATE NULL,
   `endereco_id` BIGINT(20) NOT NULL,
