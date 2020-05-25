@@ -54,7 +54,7 @@ public class CadastroEmpresaController implements Serializable {
 			empresaDao.salvar(empresa);
 			FacesMessage mensagem = new FacesMessage();
 			mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-			mensagem.setSummary("Pessoa salva com sucesso!");
+			mensagem.setSummary("Empresa salva com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, mensagem);
 		}
 		return "/login.xhtml?faces-redirect=true";
