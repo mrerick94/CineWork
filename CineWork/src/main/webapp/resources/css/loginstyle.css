@@ -1,0 +1,79 @@
+* {
+	box-sizing: border-box;
+}
+
+.divprincipal {
+	width: 50%;
+	min-height: 100vh;
+	float: right;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.formLogin {
+	background-color: #C5586C;
+	max-width: 547px;
+	right: 0px;
+	border-radius: 3%;
+	height: 690px;
+	padding: 20px;
+	border: solid medium #000;
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.loginText2 {
+	margin-top: 20px;
+	margin-bottom: 45px;
+}
+
+.loginText1 {
+	text-align: center;
+	color: #fff;
+	font-size: 16pt;
+}
+
+.ui-widget {
+	font-family: 'Source Sans Pro', sans-serif !important;
+}
+
+.inputtext1 {
+	width: 80%;
+	height: 56px;
+	padding-left: 15px !important;
+}
+
+.ui-corner-all {
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+
+.inputtext2 {
+	margin-top: 15px;
+	margin-bottom: 25px;
+}
+
+.div-align-center {
+	justify-content: center;
+	display: flex;
+}
+
+  .divbotao {
+  	margin-top: 20px;
+  	display: flex;
+  	justify-content: center;
+  }
+  
+  .botaoentrar {
+  	width: 150px;
+  	height: 45px;
+  	font-size: 16pt;
+  	margin-bottom: 65px;
+  }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="titulo">CineWork</ui:insert></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<h:outputStylesheet library="css" name="hudprincipalstyle.css" />
+	<ui:insert name="css"></ui:insert>
+</h:head>
+
+<h:body>
+	<p:growl autoUpdate="true" />
+
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+
+	<div class="wrapper">
+		<div class="sidebar">
+			<p:graphicImage class="logo" library="images"
+				name="cineworklogologin.png" />
+			<ul>
+				<li><a href="#"><i class="fas fa-home"></i>Home</a></li>
+				<li><a href="#"><i class="fas fa-user"></i>Profile</a></li>
+				<li><a href="#"><i class="fas fa-address-card"></i>About</a></li>
+			</ul>
+		</div>
+		<div class="main_content">
+			<div class="header">
+				<h:form id="header">
+					<p:menubar styleClass="menubar">
+						<p:submenu label="#{loginController.nomeEmpresa}" styleClass="submenuempresa">
+							<p:menuitem value="Sair" action="#{loginController.logout}" iconPos="left" icon="fas fa-sign-out-alt" />
+						</p:submenu>
+					</p:menubar>
+				</h:form>
+			</div>
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+
+
+</h:body>
+</html>
