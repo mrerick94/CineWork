@@ -31,7 +31,7 @@ body{
   height: 100%;
   background: #C5586C;
   padding: 10px 0px;
-  position: fixed;
+  position: absolute;
 }
 
 .wrapper .sidebar h2{
@@ -67,6 +67,7 @@ body{
 
 .wrapper .main_content{
   width: 100%;
+  min-height: 100vh;
   margin-left: 200px;
 }
 
@@ -96,4 +97,9 @@ body{
 
 .ui-icon {
 	margin-right: 10px;
+}
+
+.mainconteudo {
+	padding: 20px;
+	height: calc(100% - 44.375px);
 }

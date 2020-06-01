@@ -186,7 +186,7 @@ CREATE INDEX `fk_funcionario_empresa1_idx` ON `cinework`.`funcionario` (`empresa
 DROP TABLE IF EXISTS `cinework`.`beneficio` ;
 
 CREATE TABLE IF NOT EXISTS `cinework`.`beneficio` (
-  `id` BIGINT(20) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(70) NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `valor` DECIMAL(8,2) UNSIGNED NOT NULL,

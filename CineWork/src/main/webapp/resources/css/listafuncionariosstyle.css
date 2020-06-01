@@ -1,0 +1,37 @@
+.maindivlista {
+	padding: 15px;
+	background-color: #e8e8e8;
+}
+
+.titulolista {
+	margin-right: 10px;
+}
+
+
+.divlista {
+	max-width: 100%;
+}
+
+.column-name {
+	width: 30% !important;
+}
+
+.column-cargo {
+	width: 10% !important;
+}
+
+.column-beneficio {
+	width: 20% !important;
+}
+
+.column-valor {
+	width: 10% !important;
+}
+
+.column-ultimouso {
+	width: 30% !important;
+}
+
+.ui-datatable-scrollable-header {
+	width: 100% !important;
+}

@@ -5,12 +5,68 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<ui:define name="css"><h:outputStylesheet library="css" name="listafuncionariosstyle.css" /></ui:define>
+
+	<ui:define name="css">
+		<h:outputStylesheet library="css" name="listafuncionariosstyle.css" />
+	</ui:define>
 
 	<ui:define name="titulo">CineWork | Lista de Funcionários</ui:define>
 
 	<ui:define name="conteudo">
-		<p:link class="fas fa-plus-circle" outcome="cadastroedicaofuncionario" value="Adicionar Colaborador"/>
+		<h:form>
+			<div class="maindivlista">
+				<div class="barratitulo">
+					<p:outputLabel value="Colaboradores" styleClass="titulolista" />
+					<p:link class="fas fa-plus-circle"
+						outcome="cadastroedicaofuncionario" />
+				</div>
+				<div class="divlista">
+					<p:dataTable id="table" var="f" widgetVar="table"
+						scrollable="true" scrollRows="30" liveScroll="true"
+						scrollHeight="150" lazy="true"
+						value="#{listaFuncionariosController.model}"
+						filteredValue="#{listaFuncionariosController.funcionariosFiltro}" >
+
+						<p:column headerText="Nome" filterBy="#{f.nome}"
+							filterMatchMode="contains" sortBy="#{f.nome}" styleClass="column-name">
+							<h:outputText value="#{f.nome}" />
+						</p:column>
+
+						<p:column headerText="Cargo" filterBy="#{f.cargo}"
+							filterMatchMode="contains" sortBy="#{f.cargo.nome}" styleClass="column-cargo">
+							<f:facet name="filter">
+								<p:selectCheckboxMenu label="Cargos"
+									onchange="PF('table').filter()" scrollHeight="150"
+									styleClass="custom-filter" value="#{listaFuncionariosController.cargosSelecionados}">
+									<f:selectItems value="#{listaFuncionariosController.cargos}" var="c" itemLabel="#{c.nome}"/>
+								</p:selectCheckboxMenu>
+							</f:facet>
+							<h:outputText value="#{f.cargo.nome}" />
+						</p:column>
+
+						<p:column headerText="Pacote de Benefícios"
+							filterBy="#{f.cargo.combo.descricao}" filterMatchMode="contains"
+							sortBy="#{f.cargo.combo.descricao}" styleClass="column-beneficio">
+							<h:outputText value="#{f.cargo.combo.descricao}" />
+						</p:column>
+
+						<p:column headerText="Valor" sortBy="#{f.cargo.combo.valor}" styleClass="column-valor">
+							<h:outputText value="#{f.cargo.combo.valor}">
+								<f:convertNumber currencySymbol="R$" type="currency" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Último Uso" sortBy="#{f.ultimoUso}"
+							styleClass="align-center column-ultimouso">
+
+							<h:outputText value="#{f.ultimoUso}">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="#{initParam.timezone}" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

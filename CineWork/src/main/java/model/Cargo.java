@@ -97,5 +97,8 @@ public class Cargo implements IBaseModel, Serializable {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 }

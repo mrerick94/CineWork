@@ -25,20 +25,25 @@
 			<ul>
 				<li><a href="#"><i class="fas fa-user"></i>Colaboradores</a></li>
 				<li><a href="#"><i class="fas fa-network-wired"></i>Cargos</a></li>
-				<li><a href="#"><i class="fas fa-handshake"></i>Pacotes Benefícios</a></li>
+				<li><a href="#"><i class="fas fa-handshake"></i>Pacotes
+						Benefícios</a></li>
 			</ul>
 		</div>
 		<div class="main_content">
 			<div class="header">
 				<h:form id="header">
 					<p:menubar styleClass="menubar">
-						<p:submenu label="#{loginController.nomeEmpresa}" styleClass="submenuempresa">
-							<p:menuitem value="Sair" action="#{loginController.logout}" iconPos="left" icon="fas fa-sign-out-alt" />
+						<p:submenu label="#{loginController.nomeEmpresa}"
+							styleClass="submenuempresa">
+							<p:menuitem value="Sair" action="#{loginController.logout}"
+								iconPos="left" icon="fas fa-sign-out-alt" />
 						</p:submenu>
 					</p:menubar>
 				</h:form>
 			</div>
-			<ui:insert name="conteudo" />
+			<div class="mainconteudo">
+				<ui:insert name="conteudo" />
+			</div>
 		</div>
 	</div>
 
