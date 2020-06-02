@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -8,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import dao.util.JPAUtil;
 import filter.FuncionarioFilter;
+import model.Cargo;
 import model.Funcionario;
 
 public class FuncionarioDao extends BaseDao<Funcionario> {
@@ -34,8 +36,18 @@ public class FuncionarioDao extends BaseDao<Funcionario> {
 			jpqlBuilder.append("where 1=1 ");
 
 			for (Entry<String, Object> entry : filtro.getFiltros().entrySet()) {
-				jpqlBuilder.append(" and f.").append(entry.getKey())
+				if (entry.getKey().contains("cargo")) {
+					jpqlBuilder.append(" and f.").append(entry.getKey())
+					.append("= :").append(entry.getKey() + "0");
+					Cargo[] cargosArray = (Cargo[]) entry.getValue();
+					for (int i = 1; i < cargosArray.length; i++) {
+						jpqlBuilder.append(" or f.").append(entry.getKey())
+						.append("= :").append(entry.getKey() + i);
+					}
+				} else {
+					jpqlBuilder.append(" and f.").append(entry.getKey())
 					.append(" like :").append(entry.getKey());
+				}
 			}
 			
 			if (filtro.getPropriedadeOrdenacao() != null) {
@@ -49,7 +61,17 @@ public class FuncionarioDao extends BaseDao<Funcionario> {
 			TypedQuery<Funcionario> query = manager.createQuery(jpqlBuilder.toString(), Funcionario.class);
 
 			for (Entry<String, Object> entry : filtro.getFiltros().entrySet()) {
-				query.setParameter(entry.getKey(), "%"+entry.getValue()+"%");
+				if (entry.getKey().contains("cargo")) {
+					Cargo[] cargosArray = (Cargo[]) entry.getValue();
+					int i = 0;
+					for (Cargo cargo : cargosArray) {
+						query.setParameter(entry.getKey() + i, cargo);
+						i++;
+						System.out.println("++++++++++++++++++++++++++++++ Value: " + cargo);
+					}
+				} else {
+					query.setParameter(entry.getKey(), "%"+entry.getValue()+"%");
+				}
 			}
 			
 			query.setFirstResult(filtro.getPrimeiroRegistro());
