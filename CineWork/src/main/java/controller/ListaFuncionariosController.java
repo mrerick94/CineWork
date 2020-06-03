@@ -36,6 +36,7 @@ public class ListaFuncionariosController implements Serializable {
 		cargoDao = new CargoDao();
 		cargos = cargoDao.buscarTodos();
 		buscar();
+		
 	}
 	
 	public void buscar() {

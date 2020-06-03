@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Cargo implements IBaseModel, Serializable {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
-	@ManyToOne(targetEntity = Combo.class, optional = true)
+	@ManyToOne(targetEntity = Combo.class, optional = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "combo_id", referencedColumnName = "id")
 	private Combo combo;
 	
@@ -55,6 +56,8 @@ public class Cargo implements IBaseModel, Serializable {
 		this.nome = nome;
 	}
 	public Combo getCombo() {
+		if (combo == null)
+			combo = new Combo();
 		return combo;
 	}
 	public void setCombo(Combo combo) {

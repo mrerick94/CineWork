@@ -59,7 +59,7 @@
 						<p:column headerText="Último Uso" sortBy="#{f.ultimoUso}"
 							styleClass="align-center column-ultimouso">
 
-							<h:outputText value="#{f.ultimoUso}">
+							<h:outputText value="#{f.ultimoUso != null ? f.ultimoUso : 'Sem histórico de uso'}" >
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="#{initParam.timezone}" />
 							</h:outputText>

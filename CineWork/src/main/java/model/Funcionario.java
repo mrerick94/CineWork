@@ -144,6 +144,8 @@ public class Funcionario implements IBaseModel, Serializable {
 		this.endereco = endereco;
 	}
 	public Cargo getCargo() {
+		if (cargo == null)
+			cargo = new Cargo();
 		return cargo;
 	}
 	public void setCargo(Cargo cargo) {
