@@ -18,6 +18,7 @@
 
 .column-cargo {
 	width: 10% !important;
+	text-align: center;
 }
 
 .column-beneficio {
@@ -26,10 +27,17 @@
 
 .column-valor {
 	width: 10% !important;
+	text-align: center;
 }
 
 .column-ultimouso {
-	width: 30% !important;
+	width: 20% !important;
+	text-align: center;
+}
+
+.column-botoes {
+	width: 10% !important;
+	text-align: center;
 }
 
 .ui-datatable-scrollable-header {

@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.model.LazyDataModel;
 
@@ -41,6 +45,23 @@ public class ListaFuncionariosController implements Serializable {
 	
 	public void buscar() {
 		model = new FuncionarioLazyModel(funcionarioDao);
+	}
+	
+	public String editarFuncionario() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		session.setAttribute("funcionario", funcionario);
+		return "/app/cadastroedicaofuncionario.xhtml?faces-redirect=true";
+	}
+	
+	public void excluir() {
+		funcionarioDao.excluir(funcionario);;
+		buscar();
+		
+		FacesMessage mensagem = new FacesMessage();
+		mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+		mensagem.setSummary("Colaborador excluído com sucesso!");
+		
+		FacesContext.getCurrentInstance().addMessage(null, mensagem);
 	}
 
 	public Funcionario getFuncionario() {

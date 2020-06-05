@@ -34,12 +34,15 @@ public class CadastroFuncionarioController implements Serializable {
 	private CargoDao cargoDao;
 
 	public CadastroFuncionarioController() {
-		funcionario = new Funcionario();
-		funcionario.setEndereco(new Endereco());
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		funcionario.setEmpresa((Empresa) session.getAttribute("empresaLogada"));
-		// FALTA VERIFICAR SE TEM ALGUM FUNCIONARIO DO CONTEXTO DA SESSAO CASO ESTIVER
-		// EDITANDO ALGUM FUNCIONARIO
+		if (session.getAttribute("funcionario") == null) {
+			funcionario = new Funcionario();
+			funcionario.setEndereco(new Endereco());
+			funcionario.setEmpresa((Empresa) session.getAttribute("empresaLogada"));
+		} else {
+			funcionario = (Funcionario) session.getAttribute("funcionario");
+		}
+		session.removeAttribute("funcionario");
 		funcionarioDao = new FuncionarioDao();
 		estadoDao = new EstadoDao();
 		estados = estadoDao.buscarTodos();
@@ -48,10 +51,15 @@ public class CadastroFuncionarioController implements Serializable {
 	}
 
 	public String cadastrar() {
-		funcionarioDao.salvar(funcionario);
 		FacesMessage mensagem = new FacesMessage();
 		mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-		mensagem.setSummary("Colaborador salvo com sucesso.");
+		if (funcionario.getId() != null) {
+			funcionarioDao.alterar(funcionario);
+			mensagem.setSummary("Colaborador alterado com sucesso.");
+		} else {
+			funcionarioDao.salvar(funcionario);
+			mensagem.setSummary("Colaborador salvo com sucesso.");
+		}
 		FacesContext.getCurrentInstance().addMessage(null, mensagem);
 		return "/app/listafuncionarios.xhtml?faces-redirect=true";
 	}

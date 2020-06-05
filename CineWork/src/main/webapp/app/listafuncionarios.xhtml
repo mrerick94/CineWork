@@ -13,7 +13,7 @@
 	<ui:define name="titulo">CineWork | Lista de Funcionários</ui:define>
 
 	<ui:define name="conteudo">
-		<h:form>
+		<h:form id="formDataTable">
 			<div class="maindivlista">
 				<div class="barratitulo">
 					<p:outputLabel value="Colaboradores" styleClass="titulolista" />
@@ -21,24 +21,27 @@
 						outcome="cadastroedicaofuncionario" />
 				</div>
 				<div class="divlista">
-					<p:dataTable id="table" var="f" widgetVar="table"
-						scrollable="true" scrollRows="30" liveScroll="true"
-						scrollHeight="150" lazy="true"
+					<p:dataTable id="table" var="f" widgetVar="table" scrollable="true"
+						scrollRows="30" liveScroll="true" scrollHeight="150" lazy="true"
 						value="#{listaFuncionariosController.model}"
-						filteredValue="#{listaFuncionariosController.funcionariosFiltro}" >
+						filteredValue="#{listaFuncionariosController.funcionariosFiltro}">
 
 						<p:column headerText="Nome" filterBy="#{f.nome}"
-							filterMatchMode="contains" sortBy="#{f.nome}" styleClass="column-name">
+							filterMatchMode="contains" sortBy="#{f.nome}"
+							styleClass="column-name">
 							<h:outputText value="#{f.nome}" />
 						</p:column>
 
 						<p:column headerText="Cargo" filterBy="#{f.cargo}"
-							filterMatchMode="contains" sortBy="#{f.cargo.nome}" styleClass="column-cargo">
+							filterMatchMode="contains" sortBy="#{f.cargo.nome}"
+							styleClass="column-cargo">
 							<f:facet name="filter">
 								<p:selectCheckboxMenu label="Cargos"
 									onchange="PF('table').filter()" scrollHeight="150"
-									styleClass="custom-filter" value="#{listaFuncionariosController.cargosSelecionados}">
-									<f:selectItems value="#{listaFuncionariosController.cargos}" var="c" itemLabel="#{c.nome}"/>
+									styleClass="custom-filter"
+									value="#{listaFuncionariosController.cargosSelecionados}">
+									<f:selectItems value="#{listaFuncionariosController.cargos}"
+										var="c" itemLabel="#{c.nome}" />
 								</p:selectCheckboxMenu>
 							</f:facet>
 							<h:outputText value="#{f.cargo.nome}" />
@@ -50,7 +53,8 @@
 							<h:outputText value="#{f.cargo.combo.descricao}" />
 						</p:column>
 
-						<p:column headerText="Valor" sortBy="#{f.cargo.combo.valor}" styleClass="column-valor">
+						<p:column headerText="Valor" sortBy="#{f.cargo.combo.valor}"
+							styleClass="column-valor">
 							<h:outputText value="#{f.cargo.combo.valor}">
 								<f:convertNumber currencySymbol="R$" type="currency" />
 							</h:outputText>
@@ -59,12 +63,42 @@
 						<p:column headerText="Último Uso" sortBy="#{f.ultimoUso}"
 							styleClass="align-center column-ultimouso">
 
-							<h:outputText value="#{f.ultimoUso != null ? f.ultimoUso : 'Sem histórico de uso'}" >
+							<h:outputText
+								value="#{f.ultimoUso != null ? f.ultimoUso : 'Sem histórico de uso'}">
 								<f:convertDateTime pattern="dd/MM/yyyy"
 									timeZone="#{initParam.timezone}" />
 							</h:outputText>
 						</p:column>
+
+						<p:column styleClass="align-center column-botoes">
+							<p:commandButton icon="far fa-edit" action="#{listaFuncionariosController.editarFuncionario}">
+								<f:setPropertyActionListener value="#{f}"
+									target="#{listaFuncionariosController.funcionario}" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-trash"
+								update="formDataTable:confirmDialog"
+								oncomplete="PF('confirmDialog').show()">
+								<f:setPropertyActionListener value="#{f}"
+									target="#{listaFuncionariosController.funcionario}" />
+							</p:commandButton>
+						</p:column>
 					</p:dataTable>
+
+					<p:confirmDialog id="confirmDialog" header="Atenção!"
+						responsive="true"
+						message="Tem certeza que deseja excluir o colaborador com nome: #{listaFuncionariosController.funcionario.nome} ?"
+						widgetVar="confirmDialog" showEffect="fade" hideEffect="fade"
+						closable="false" closeOnEscape="true">
+
+						<p:commandButton value="Sim" icon="fa fa-check" update="@form"
+							action="#{listaFuncionariosController.excluir}"
+							oncomplete="PF('confirmDialog').hide()" />
+
+						<p:button value="Não" icon="fa fa-times"
+							onclick="PF('confirmDialog').hide(); return false;" />
+
+					</p:confirmDialog>
 				</div>
 			</div>
 		</h:form>
