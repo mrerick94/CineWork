@@ -1,0 +1,13 @@
+hr .solid {
+	border-top: 2px solid #bbb;
+}
+
+.apresentacao-titulo {
+	font-size: 24pt;
+	margin-bottom: 10px;
+}
+
+.apresentacao-text {
+	text-align: justify;
+	margin-bottom: 10px;
+}
