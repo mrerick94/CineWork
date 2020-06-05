@@ -50,7 +50,6 @@ public class CadastroEmpresaController implements Serializable {
 				FacesContext.getCurrentInstance().addMessage(null, mensagem);
 				return null;
 			}
-			System.out.println(empresa.getEndereco().getCep());
 			empresaDao.salvar(empresa);
 			FacesMessage mensagem = new FacesMessage();
 			mensagem.setSeverity(FacesMessage.SEVERITY_INFO);

@@ -46,7 +46,6 @@ public class LoginController implements Serializable {
 	public String getNomeEmpresa() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		Empresa empresa = (Empresa) session.getAttribute("empresaLogada");
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + empresa.getNome());
 		return empresa.getNome();
 	}
 	

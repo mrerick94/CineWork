@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/hud-principal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="css">
+		<h:outputStylesheet library="css" name="configuracoes.css" />
+	</ui:define>
+	<ui:define name="css2">
+		<h:outputStylesheet library="css" name="primeflex.css" />
+	</ui:define>
+
+	<ui:define name="titulo">CineWork | Informações da Conta</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form class="forminformacoes" id="forminformacoes">
+			<p:growl id="mensagemSalvar" life="5000" />
+			<div class="p-grid">
+				<p:outputLabel value="Nome Fantasia: " for="nome" class="p-col-2" />
+				<p:inputText id="nome" required="true"
+					requiredMessage="Nome fantansia deve ser preenchido"
+					value="#{configuracoesController.empresa.nome}"
+					placeholder="Informe o nome fantasia de sua empresa"
+					class="p-col-9 inputtext" maxlength="100" />
+			</div>
+			<div class="p-grid">
+				<p:outputLabel value="CNPJ: " for="cnpj" class="p-col-2" />
+				<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"
+					requiredMessage="CNPJ deve ser preenchido"
+					value="#{configuracoesController.empresa.cnpj}"
+					placeholder="Informe o CNPJ de sua empresa"
+					class="p-col-4 inputtext" maxlength="14">
+					<p:keyFilter mask="num" />
+				</p:inputMask>
+			</div>
+			<div class="p-grid">
+				<p:outputLabel value="Telefone: " for="telefone" class="p-col-2" />
+				<p:inputMask mask="(99)99999-9999" id="telefone" required="true"
+					requiredMessage="Telefone deve ser preenchido"
+					value="#{configuracoesController.empresa.telefone}"
+					placeholder="Informe o telefone de sua empresa"
+					class="p-col-4 inputtext" maxlength="11">
+					<p:keyFilter mask="num" />
+				</p:inputMask>
+			</div>
+
+			<div class="endereco">
+				<p:outputLabel value="Endereço" />
+				<div class="p-grid">
+					<p:outputLabel value="CEP: " for="cep" class="p-col-2" />
+					<p:inputMask mask="99.999-999" id="cep" required="true"
+						requiredMessage="CEP deve ser preenchido"
+						value="#{configuracoesController.empresa.endereco.cep}"
+						placeholder="CEP" class="p-col-2 inputtext" maxlength="8">
+						<p:keyFilter mask="num" />
+					</p:inputMask>
+				</div>
+				<div class="p-grid">
+					<p:outputLabel value="Logradouro: " for="logradouro"
+						class="p-col-2" />
+					<p:inputText id="logradouro" required="true"
+						requiredMessage="Logradouro deve ser preenchido"
+						value="#{configuracoesController.empresa.endereco.logradouro}"
+						placeholder="Logradouro da empresa" class="p-col-8 inputtext"
+						maxlength="100" />
+					<p:outputLabel value="Nº: " for="numero" />
+					<p:inputText id="numero"
+						value="#{cadastroEmpresaController.empresa.endereco.numero}"
+						class="p-col-1 inputtext" maxlength="5">
+						<p:keyFilter mask="num" />
+					</p:inputText>
+				</div>
+				<div class="p-grid">
+					<p:outputLabel value="Complemento: " for="complemento"
+						class="p-col-2" />
+					<p:inputText id="complemento"
+						value="#{configuracoesController.empresa.endereco.complemento}"
+						placeholder="Informação adicional ao endereço"
+						class="p-col-8 inputtext" maxlength="255" />
+				</div>
+				<div class="p-grid">
+					<p:outputLabel value="Cidade: " for="cidade" class="p-col-2" />
+					<p:inputText id="cidade" required="true"
+						requiredMessage="Cidade deve ser preenchida"
+						value="#{configuracoesController.empresa.endereco.cidade}"
+						placeholder="Cidade da empresa" class="p-col-6 inputtext"
+						maxlength="70" />
+					<p:outputLabel value="UF: " for="uf" />
+					<p:selectOneMenu id="uf"
+						value="#{configuracoesController.empresa.endereco.estado}"
+						required="true" requiredMessage="Estado deve ser selecionado">
+						<f:selectItem itemLabel="UF" noSelectionOption="true" />
+
+						<f:selectItems var="uf" value="#{configuracoesController.estados}"
+							itemLabel="#{uf.uf}" />
+					</p:selectOneMenu>
+				</div>
+				<div class="p-grid">
+					<p:outputLabel value="Bloco: " for="bloco" class="p-col-2" />
+					<p:inputText id="bloco"
+						value="#{configuracoesController.empresa.endereco.bloco}"
+						placeholder="Prédio da empresa" class="p-col-2 inputtext"
+						maxlength="45" />
+					<p:outputLabel value="Sala: " for="sala" />
+					<p:inputText id="sala"
+						value="#{configuracoesController.empresa.endereco.apartamento}"
+						class="p-col-1 inputtext" maxlength="7" />
+				</div>
+			</div>
+
+			<div class="p-grid">
+				<p:outputLabel value="E-mail: " for="email" class="p-col-2" />
+				<p:inputText id="email" required="true"
+					requiredMessage="E-mail deve ser preenchido"
+					value="#{configuracoesController.empresa.email}"
+					placeholder="Informe o e-mail a ser usado na conta por sua empresa"
+					class="p-col-9 inputtext" maxlength="100" />
+			</div>
+			<div class="p-grid">
+				<p:commandLink icon="fas fa-key" value="Trocar Senha atual"
+					update="formdialog:dialogTrocarSenha"
+					oncomplete="PF('dialogTrocarSenha').show()">
+				</p:commandLink>
+			</div>
+
+
+			<div class="botoes">
+				<p:commandButton value="Salvar"
+					update="forminformacoes, mensagemSalvar"
+					action="#{configuracoesController.salvar}" />
+			</div>
+
+
+		</h:form>
+
+		<h:form id="formdialog">
+			<p:growl id="mensagemDialog" life="10000" />
+			<p:dialog id="dialogTrocarSenha" header="Troca de Senha"
+				draggable="false" resizable="false" closable="false"
+				responsive="true" modal="true" closeOnEscape="true"
+				showEffect="fade" hideEffect="fade" widgetVar="dialogTrocarSenha">
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Antiga Senha:" for="oldpass" />
+					<p:password id="oldpass"
+						value="#{configuracoesController.senhaAntiga}" required="true"
+						requiredMessage="Antiga Senha deve ser preenchida." />
+
+					<p:outputLabel value="Nova Senha:" for="senha" />
+					<p:password id="senha" value="#{configuracoesController.novaSenha}"
+						required="true" requiredMessage="Nova Senha deve ser preenchida." />
+
+					<p:outputLabel value="Confirmação Nova Senha:" for="confirmacao" />
+					<p:password id="confirmacao"
+						value="#{configuracoesController.confirmacaoNovaSenha}"
+						required="true"
+						requiredMessage="Digite a nova senha novamente no campo de confirmação." />
+
+					<f:facet name="footer">
+						<p:commandButton value="Trocar" icon="fa fa-check"
+							action="#{configuracoesController.trocarSenha}"
+							update="mensagemDialog" />
+
+						<p:commandButton value="Cancelar" icon="fa fa-times"
+							action="#{configuracoesController.limparDialog}"
+							oncomplete="PF('dialogTrocarSenha').hide()" />
+					</f:facet>
+				</h:panelGrid>
+
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
