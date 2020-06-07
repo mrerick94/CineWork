@@ -11,3 +11,53 @@ hr .solid {
 	text-align: justify;
 	margin-bottom: 10px;
 }
+
+.quadrocombo {
+	border: solid 2px #aaa;
+	border-radius: 4px;
+	width: 280px;
+	height: 450px;
+	display: inline-block;
+	margin-top: 20px;
+	margin-right:20px;
+	background-color: #ddd;
+	transition: all 250ms linear;
+	padding: 15px;
+	font-size: 11pt;
+	position: relative;
+	
+}
+
+.quadrocombo:hover {
+	background-color: #ccc;
+	transition: all 250ms linear;
+}
+
+.imagemcombo {
+	height: 190px;
+	max-width: 220px;
+	border-radius: 4px;
+	margin-top: 10px;
+}
+
+.divimagecombo {
+	text-align: center !important;
+	height: 200px !important;
+	margin-bottom: 20px;
+}
+
+.botaoatribuircargo {
+	position: absolute;
+	bottom: 10px;
+	width: calc(100% - 30px);
+	text-align: center;
+}
+
+.combos {
+	display: flex;
+	flex-direction: row;
+}
+
+.botaoselecionar {
+	margin-left: 10px;
+}

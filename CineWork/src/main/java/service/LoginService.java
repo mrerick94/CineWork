@@ -1,10 +1,13 @@
 package service;
 
+import java.io.Serializable;
+
 import dao.EmpresaDao;
 import model.Empresa;
 
-public class LoginService {
+public class LoginService implements Serializable {
 
+	private static final long serialVersionUID = 8036087376439893849L;
 	private EmpresaDao dao;
 	
 	public LoginService() {

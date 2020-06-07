@@ -10,6 +10,9 @@
 		<h:outputStylesheet library="css"
 			name="listapacotesbeneficiosstyle.css" />
 	</ui:define>
+	<ui:define name="css2">
+		<h:outputStylesheet library="css" name="primeflex.css" />
+	</ui:define>
 
 	<ui:define name="titulo">CineWork | Lista de Funcionários</ui:define>
 
@@ -25,10 +28,68 @@
 						e todos os colaboradores do cargo irão receber o pacote. Caso você queira que algum colaborador não 
 						receba o pacote atribuído ao cargo, você pode ir na lista de colaboradores, clicar em editar o colaborador, e desativa-lo de receber benefícios." />
 				</div>
-				<div>
-					<hr class="solid" />
-				</div>
 			</div>
+			<div>
+				<hr class="solid" />
+			</div>
+			<div class="combos">
+				<ui:repeat var="c"
+					value="#{listaPacotesBeneficiosController.combos}">
+					<div class="quadrocombo">
+						<div class="divimagecombo">
+							<p:graphicImage styleClass="imagemcombo" library="images"
+								name="#{c.imagePath}" />
+						</div>
+						<div class="beneficios">
+							<ui:repeat var="b" value="#{c.beneficios}">
+								<div class="p-grid">
+									<div class="icone p-col-1">
+										<i class="#{b.beneficio.iconName}" />
+									</div>
+									<div class="beneficio p-col-11">
+										<h:outputText value="#{b.quantidade} #{b.beneficio.nome}" />
+									</div>
+								</div>
+							</ui:repeat>
+						</div>
+						<div class="botaoatribuircargo">
+							<p:commandButton update="formdialog:dialogEscolheCargo"
+								oncomplete="PF('dialogEscolheCargo').show()"
+								value="Atribuir a um Cargo">
+								<f:setPropertyActionListener value="#{c}"
+									target="#{listaPacotesBeneficiosController.combo}" />
+							</p:commandButton>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+		</h:form>
+
+		<h:form id="formdialog">
+			<p:growl id="mensagemDialog" life="10000" />
+			<p:dialog id="dialogEscolheCargo" header="Escolha o Cargo:"
+				draggable="false" resizable="false" closable="true"
+				responsive="true" modal="true" closeOnEscape="true"
+				showEffect="fade" hideEffect="fade" widgetVar="dialogEscolheCargo">
+
+				<p:selectOneMenu id="cargos"
+					value="#{listaPacotesBeneficiosController.cargo}" required="true"
+					requiredMessage="Você precisa selecionar um Cargo para atribuir um Combo.">
+					<f:selectItem itemLabel="Selecione um Cargo ..."
+						noSelectionOption="true" />
+
+					<f:selectItems var="cargo"
+						value="#{listaPacotesBeneficiosController.cargos}"
+						itemLabel="#{cargo.nome}" />
+				</p:selectOneMenu>
+
+				<p:commandButton value="Selecionar" icon="fa fa-check"
+					update="mensagemDialog"
+					action="#{listaPacotesBeneficiosController.botarComboNoCargoSelecionado}" styleClass="botaoselecionar"/>
+
+				<p:button value="Cancelar" icon="fa fa-times"
+					onclick="PF('dialogEscolheCargo').hide(); return false;" />
+			</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

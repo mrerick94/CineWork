@@ -35,6 +35,9 @@ public class Beneficio implements IBaseModel, Serializable {
 	@Column(name = "valor", nullable = false)
 	private Double valor;
 	
+	@Column(name = "iconName", nullable = false)
+	private String iconName;
+	
 	@OneToMany(mappedBy = "beneficio", targetEntity = BeneficioCombo.class)
 	private List<BeneficioCombo> combos;
 	
@@ -61,6 +64,12 @@ public class Beneficio implements IBaseModel, Serializable {
 	}
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+	public String getIconName() {
+		return iconName;
+	}
+	public void setIconName(String iconName) {
+		this.iconName = iconName;
 	}
 	public List<BeneficioCombo> getCombos() {
 		return combos;
