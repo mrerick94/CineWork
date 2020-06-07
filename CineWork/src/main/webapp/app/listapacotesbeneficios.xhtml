@@ -40,6 +40,9 @@
 							<p:graphicImage styleClass="imagemcombo" library="images"
 								name="#{c.imagePath}" />
 						</div>
+						<div class="titulocombo">
+							<h:outputText value="#{c.descricao}" />
+						</div>
 						<div class="beneficios">
 							<ui:repeat var="b" value="#{c.beneficios}">
 								<div class="p-grid">
@@ -52,7 +55,13 @@
 								</div>
 							</ui:repeat>
 						</div>
+
 						<div class="botaoatribuircargo">
+							<div class="titulocombo">
+								<h:outputText value="#{c.valor}">
+									<f:convertNumber currencySymbol="R$" type="currency" />
+								</h:outputText>
+							</div>
 							<p:commandButton update="formdialog:dialogEscolheCargo"
 								oncomplete="PF('dialogEscolheCargo').show()"
 								value="Atribuir a um Cargo">
@@ -85,7 +94,8 @@
 
 				<p:commandButton value="Selecionar" icon="fa fa-check"
 					update="mensagemDialog"
-					action="#{listaPacotesBeneficiosController.botarComboNoCargoSelecionado}" styleClass="botaoselecionar"/>
+					action="#{listaPacotesBeneficiosController.botarComboNoCargoSelecionado}"
+					styleClass="botaoselecionar" />
 
 				<p:button value="Cancelar" icon="fa fa-times"
 					onclick="PF('dialogEscolheCargo').hide(); return false;" />
