@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/hud-principal.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="css">
+		<h:outputStylesheet library="css" name="listacargosstyle.css" />
+	</ui:define>
+
+	<ui:define name="titulo">CineWork | Lista de Funcionários</ui:define>
+
+	<ui:define name="conteudo" >
+		<h:form id="formListaCargos" >
+			<div class="divcargos">
+				<ui:repeat var="d" value="#{listaCargosController.dados}"
+					varStatus="cStatus">
+					<p:fieldset legend="#{d.nomeCargo}" toggleable="true"
+						toggleSpeed="500" styleClass="fieldset" widgetVar="fieldset#{cStatus.index}">
+						<div class="divesquerda">
+							<p:panelGrid columns="2">
+								<h:outputText value="Quantidade de colaboradores neste cargo: " />
+								<h:outputText value="#{d.quantidadeFuncionarios}" />
+								<h:outputText value="Quantidade de colaboradores neste cargo: " />
+								<h:outputText value="#{d.quantidadeFuncionariosAtivos}" />
+								<h:outputText value="Gasto por mês com este cargo: " />
+								<h:outputText value="#{d.somaQuantidadeGasto}">
+									<f:convertNumber currencySymbol="R$" type="currency" />
+								</h:outputText>
+								<f:facet name="footer">
+									<p:commandButton
+										action="#{listaCargosController.listarColaboradoresDoCargo}"
+										value="Ver Colaboradores neste cargo">
+										<f:setPropertyActionListener value="#{d.cargo}"
+											target="#{listaCargosController.cargo}" />
+									</p:commandButton>
+									<p:commandButton update="formdialog:dialogEscolheCombo"
+										oncomplete="PF('dialogEscolheCombo').show()"
+										value="Alterar Combo atribuido a este Cargo">
+										<f:setPropertyActionListener value="#{d.cargo}"
+											target="#{listaCargosController.cargo}" />
+											<f:setPropertyActionListener value="field#{cStatus.index}"
+											target="#{listaCargosController.fieldVar}" />
+									</p:commandButton>
+								</f:facet>
+							</p:panelGrid>
+						</div>
+						<div class="divdireita">
+							<p:panelGrid>
+								Direita
+							</p:panelGrid>
+						</div>
+					</p:fieldset>
+				</ui:repeat>
+			</div>
+		</h:form>
+		
+		<h:form id="formdialog">
+			<p:growl id="mensagemDialog" life="10000" />
+			<p:dialog id="dialogEscolheCombo" header="Escolha o Combo de Benefícios:"
+				draggable="false" resizable="false" closable="true"
+				responsive="true" modal="true" closeOnEscape="true"
+				showEffect="fade" hideEffect="fade" widgetVar="dialogEscolheCombo">
+
+				<p:selectOneMenu id="combos"
+					value="#{listaCargosController.combo}">
+					<f:selectItem itemLabel="Selecione um Combo ..."
+						noSelectionOption="true" />
+
+					<f:selectItems var="combo"
+						value="#{listaCargosController.combos}"
+						itemLabel="#{combo}" />
+				</p:selectOneMenu>
+
+				<p:commandButton value="Selecionar" icon="fa fa-check"
+					update="mensagemDialog, formListaCargos"
+					action="#{listaCargosController.botarComboNoCargoSelecionado}"
+					styleClass="botaoselecionar" />
+
+				<p:button value="Cancelar" icon="fa fa-times"
+					onclick="PF('dialogEscolheCombo').hide(); return false;" />
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

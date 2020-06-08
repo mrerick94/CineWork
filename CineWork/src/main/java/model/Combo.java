@@ -94,4 +94,8 @@ public class Combo implements IBaseModel, Serializable {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return this.descricao + " | Valor: R$ " + String.valueOf(this.valor).replace(".", ",");
+	}
 }

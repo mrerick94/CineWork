@@ -1,0 +1,30 @@
+.fieldset {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 1em;
+}
+
+.ui-fieldset-content {
+	align-items: flex-start;
+	display: flex;
+}
+
+.ui-panelgrid-cell {
+	border-width: 0px !important;
+}
+
+.ui-panelgrid tr {
+	border-width: 0px !important;
+	height: 32px !important;
+}
+
+.divesquerda {
+	display: inline-block;
+	width: calc(65% - 1em);
+}
+
+.divdireita {
+	display: inline-block;
+	width: calc(35% - 1em);
+}

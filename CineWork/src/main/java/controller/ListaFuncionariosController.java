@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 
 import dao.CargoDao;
@@ -34,12 +35,19 @@ public class ListaFuncionariosController implements Serializable {
 	
 	@PostConstruct
 	public void init() {
+		Cargo cargo = new Cargo();
 		funcionario = new Funcionario();
 		funcionarioDao = new FuncionarioDao();
 		cargoDao = new CargoDao();
 		cargos = cargoDao.buscarTodos();
 		buscar();
-		
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		if (session.getAttribute("filtroCargoListagemFuncionarios") != null) {
+			cargo = (Cargo) session.getAttribute("filtroCargoListagemFuncionarios");
+			Cargo[] lista = {cargos.get(cargos.indexOf(cargo))};
+			cargosSelecionados = lista;
+			PrimeFaces.current().executeScript("PF('table').filter();");
+		}
 	}
 	
 	public void buscar() {
