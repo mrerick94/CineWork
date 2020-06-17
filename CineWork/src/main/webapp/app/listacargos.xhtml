@@ -38,7 +38,7 @@
 									</p:commandButton>
 									<p:commandButton update="formdialog:dialogEscolheCombo"
 										oncomplete="PF('dialogEscolheCombo').show()"
-										value="Alterar Combo atribuido a este Cargo">
+										value="Alterar Combo atribuido a este Cargo" styleClass="botaodireito">
 										<f:setPropertyActionListener value="#{d.cargo}"
 											target="#{listaCargosController.cargo}" />
 											<f:setPropertyActionListener value="field#{cStatus.index}"
@@ -49,7 +49,7 @@
 						</div>
 						<div class="divdireita">
 							<p:panelGrid>
-								Direita
+								
 							</p:panelGrid>
 						</div>
 					</p:fieldset>

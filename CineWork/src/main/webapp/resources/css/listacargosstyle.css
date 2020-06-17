@@ -28,3 +28,15 @@
 	display: inline-block;
 	width: calc(35% - 1em);
 }
+
+.ui-panelgrid-footer {
+	border: 0px solid #fff !important;
+}
+
+.ui-panelgrid-footer .ui-panelgrid-cell {
+	background: #fff !important;
+}
+
+.botaodireito {
+	margin-left: 10px;
+}

@@ -2,6 +2,15 @@
 	box-sizing: border-box;
 }
 
+body {
+	background: linear-gradient(to right, rgba(255, 255, 255, 0),
+		rgba(255, 255, 255, 0), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1)),
+		url("/CineWork/resources/images/loginbackground.png") -15px -15px
+		no-repeat;
+	margin: 0px;
+	background-origin: border-box;
+}
+
 .divprincipal {
 	width: 50%;
 	min-height: 100vh;
@@ -65,15 +74,15 @@
 	display: flex;
 }
 
-  .divbotao {
-  	margin-top: 20px;
-  	display: flex;
-  	justify-content: center;
-  }
-  
-  .botaoentrar {
-  	width: 150px;
-  	height: 45px;
-  	font-size: 16pt;
-  	margin-bottom: 65px;
-  }
+.divbotao {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.botaoentrar {
+	width: 150px;
+	height: 45px;
+	font-size: 16pt;
+	margin-bottom: 65px;
+}
