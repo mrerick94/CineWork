@@ -105,7 +105,7 @@ public class FuncionarioDao extends BaseDao<Funcionario> {
 
 			//cargo.combo.descricao
 			if (filtro.getPropriedadeOrdenacao() != null) {
-				jpqlBuilder.append("order by ").append(filtro.getPropriedadeOrdenacao());
+				jpqlBuilder.append(" order by ").append(filtro.getPropriedadeOrdenacao());
 
 				if (!filtro.isAscendente()) {
 					jpqlBuilder.append(" desc");

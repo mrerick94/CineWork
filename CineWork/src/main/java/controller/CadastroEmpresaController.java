@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import bo.EmpresaBO;
 import dao.EmpresaDao;
 import dao.EstadoDao;
 import model.Empresa;
@@ -43,18 +44,24 @@ public class CadastroEmpresaController implements Serializable {
 	}
 
 	public String cadastrar() {
-		if (verificarSenha()) {
-			if (!aceitaTermos) {
-				FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_WARN, "Você precisa aceitar o Contrato de Serviços da CineWork para poder usar nosso Serviço.",
-						null);
+		if (EmpresaBO.validarEmpresa(empresa)) {
+			if (verificarSenha()) {
+				if (!aceitaTermos) {
+					FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_WARN, "Você precisa aceitar o Contrato de Serviços da CineWork para poder usar nosso Serviço.",
+							null);
+					FacesContext.getCurrentInstance().addMessage(null, mensagem);
+					return null;
+				}
+				empresaDao.salvar(empresa);
+				FacesMessage mensagem = new FacesMessage();
+				mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+				mensagem.setSummary("Empresa salva com sucesso!");
 				FacesContext.getCurrentInstance().addMessage(null, mensagem);
+			} else {
 				return null;
 			}
-			empresaDao.salvar(empresa);
-			FacesMessage mensagem = new FacesMessage();
-			mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-			mensagem.setSummary("Empresa salva com sucesso!");
-			FacesContext.getCurrentInstance().addMessage(null, mensagem);
+		} else {
+			return null;
 		}
 		return "/login.xhtml?faces-redirect=true";
 	}
@@ -67,6 +74,18 @@ public class CadastroEmpresaController implements Serializable {
 		}
 	}
 	
+	public void buscarCnpj(AjaxBehaviorEvent e) {
+		if (validarCnpj(empresa.getCnpj())) {
+			EmpresaBO.consultarCNPJ(empresa);
+		} else {
+			System.out.println("-----------------------" + empresa.getCnpj() + " CNPJ Nao valido");
+		}
+	}
+	
+	private boolean validarCnpj(String cnpj) {
+		return EmpresaBO.cnpjValidator(cnpj);
+	}
+	
 	private boolean verificarSenha() {
 		if (!confirmacaoSenha.equals(empresa.getSenha())) {
 			FacesMessage mensagem = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Os campos Senha e Confirmação de Senha estão diferentes!",
@@ -75,6 +94,13 @@ public class CadastroEmpresaController implements Serializable {
 			return false;
 		}
 		return true;
+	}
+	
+	public void validarEmail() {
+		if (!empresa.getEmail().matches(getEmailRegex())) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,"E-mail inválido", "E-mail inválido");
+			FacesContext.getCurrentInstance().addMessage("msgEmailInvalido", message);
+		};
 	}
 	
 	public String voltar() {
@@ -107,5 +133,9 @@ public class CadastroEmpresaController implements Serializable {
 
 	public void setAceitaTermos(boolean aceitaTermos) {
 		this.aceitaTermos = aceitaTermos;
+	}
+
+	public String getEmailRegex() {
+		return "(^(\\D)+(\\w)*((\\.(\\w)+)?)+@(\\D)+(\\w)*((\\.(\\D)+(\\w)*)+)?(\\.)[a-z]{2,}$)";
 	}
 }

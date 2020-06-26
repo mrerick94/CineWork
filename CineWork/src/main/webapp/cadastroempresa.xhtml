@@ -16,7 +16,7 @@
 	<center>
 		<h3>Crie sua Conta</h3>
 	</center>
-	<h:form class="cadastro" id="cadastro">
+	<h:form class="cadastro" id="cadastro" >
 		<p:growl id="mensagemSalvar" life="5000" />
 		<div class="p-grid">
 			<p:outputLabel value="Nome Fantasia: " for="nome" class="p-col-2" />
@@ -29,12 +29,14 @@
 		<div class="p-grid">
 			<p:outputLabel value="CNPJ: " for="cnpj" class="p-col-2" />
 			<p:inputMask mask="99.999.999/9999-99" id="cnpj" required="true"
-				requiredMessage="CNPJ deve ser preenchido"
+				requiredMessage="CNPJ inválido"
 				value="#{cadastroEmpresaController.empresa.cnpj}"
 				placeholder="Informe o CNPJ de sua empresa"
-				class="p-col-4 inputtext" maxlength="14" >
+				class="p-col-4 inputtext" autoClear="false" >
 				<p:keyFilter mask="num"/>
+				<p:ajax event="blur" async="true" listener="#{cadastroEmpresaController.buscarCnpj}" update="msgCnpj, cadastro" />
 				</p:inputMask>
+				<p:message for="cnpj" id="msgCnpj"/>
 		</div>
 		<div class="p-grid">
 			<p:outputLabel value="Telefone: " for="telefone" class="p-col-2" />
@@ -116,7 +118,10 @@
 				requiredMessage="E-mail deve ser preenchido"
 				value="#{cadastroEmpresaController.empresa.email}"
 				placeholder="Informe o e-mail a ser usado na conta por sua empresa"
-				class="p-col-9 inputtext" maxlength="100" />
+				class="p-col-7 inputtext" maxlength="100" validatorMessage="E-mail inválido.">
+				<p:ajax event="blur" listener="#{cadastroEmpresaController.validarEmail}" update="msgEmailInvalido, cadastro" />
+				</p:inputText>
+				<p:message for="email" id="msgEmailInvalido" />
 		</div>
 		<div class="p-grid">
 			<p:outputLabel value="Senha: " for="senha" class="p-col-2" />
@@ -127,17 +132,17 @@
 				maxlength="24" redisplay="true"/>
 			<p:outputLabel
 				value="Entre 8 e 24 caracteres, e deve conter letra maiúscula e número"
-				class="p-col-5 dica" />
+				class="p-col-5 dica" rendered="false"/>
 		</div>
 		<div class="p-grid">
 			<p:outputLabel value="Confirmação Senha: " for="confirmacaosenha"
 				class="p-col-2" />
 			<p:password id="confirmacaosenha" required="true"
-				requiredMessage="Telefone deve ser preenchido"
+				requiredMessage="Confirmação de senha deve ser preenchida"
 				value="#{cadastroEmpresaController.confirmacaoSenha}"
 				placeholder="Informe a senha novamente" class="p-col-4 inputtext"
-				maxlength="24" match="senha" redisplay="true">
-				<p:ajax event="blur" listener="#{cadastroEmpresaController.confirmarSenha}" form="@form" update="@form"/>
+				maxlength="24">
+				<p:ajax event="blur" listener="#{cadastroEmpresaController.confirmarSenha}" form="@form" update="mensagemSalvar"/>
 			</p:password>
 		</div>
 
@@ -153,7 +158,7 @@
 
 <!-- Botao voltar nao está funcionando quando os campos requeridos nao estao preenchidos -->
 			<p:commandButton value="Voltar"
-				action="#{cadastroEmpresaController.voltar}" />
+				action="#{cadastroEmpresaController.voltar}" disabled="true"/>
 		</div>
 	</h:form>
 </h:body>

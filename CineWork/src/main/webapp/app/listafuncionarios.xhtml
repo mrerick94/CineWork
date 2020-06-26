@@ -13,7 +13,7 @@
 	<ui:define name="titulo">CineWork | Lista de Funcionários</ui:define>
 
 	<ui:define name="conteudo">
-		<h:form id="formDataTable">
+		<h:form id="formDataTable" styleClass="formDataTable">
 			<div class="maindivlista">
 				<div class="barratitulo">
 					<p:outputLabel value="Colaboradores" styleClass="titulolista" />
@@ -22,7 +22,7 @@
 				</div>
 				<div class="divlista">
 					<p:dataTable id="table" var="f" widgetVar="table" scrollable="true"
-						scrollRows="30" liveScroll="true" scrollHeight="150" lazy="true"
+						scrollRows="30" liveScroll="true" scrollHeight="700"  lazy="true"
 						value="#{listaFuncionariosController.model}"
 						filteredValue="#{listaFuncionariosController.funcionariosFiltro}">
 
@@ -48,7 +48,6 @@
 						</p:column>
 
 						<p:column headerText="Pacote de Benefícios"
-							filterBy="#{f.cargo.combo.descricao}" filterMatchMode="contains"
 							sortBy="#{f.cargo.combo.descricao}" styleClass="column-beneficio">
 							<h:outputText value="#{f.cargo.combo.descricao}" />
 						</p:column>
